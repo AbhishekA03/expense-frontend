@@ -1,0 +1,54 @@
+/* FULL SCREEN BACKGROUND */
+
+.login-page {
+  background: url("../assets/images/Login.jpg") no-repeat left center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* OVERLAY */
+body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(173, 216, 230, 0.6);
+  z-index: -1;
+}
+
+/* CARD */
+.login-container {
+  width: 350px;
+  padding: 30px;
+  background: #e6e6e6;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* INPUT */
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* BUTTON */
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #1e73d8;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background: #155bb5;
+}

@@ -1,13 +1,25 @@
-body {
+/* RESET */
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* FULL HEIGHT FIX */
+html, body, #root {
+  height: 100%;
+}
+
+/* MAIN BACKGROUND */
+body {
+  font-family: "Poppins", sans-serif;
+
+
+
+  background-attachment: fixed;
+}
+
+/* REMOVE ANY WHITE BACKGROUND FROM ROOT */
+#root {
+  background: transparent;
 }
