@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/auth.css";
+import "../styles/Login.css";
 
 const Login = () => {
   const [form, setForm] = useState({
