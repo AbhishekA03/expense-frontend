@@ -44,15 +44,14 @@ export default function Dashboard() {
   const [incomeForm, setIncomeForm] = useState({});
   const [expenseForm, setExpenseForm] = useState({});
 
-  const [filter, setFilter] = useState({
-    month: "",
-    year: "",
-    date: ""
-  });
+
 
   useEffect(() => {
-    fetchData();
-  }, []);
+  const load = async () => {
+    await fetchData();
+  };
+  load();
+}, []);
 
   // 📊 FETCH DATA
   const fetchData = async () => {
