@@ -6,6 +6,9 @@ import logo from "../assets/images/Logo.jpg";
 import profile from "../assets/images/Profile.jpg";
 import bot from "../assets/images/Robot.jpg";
 import { useNavigate } from "react-router-dom";
+import API from "../api/axios";
+
+
 
 import {
   Chart as ChartJS,
@@ -32,6 +35,11 @@ ChartJS.register(
 export default function Dashboard() {
   const navigate = useNavigate();
 
+  const [filter, setFilter] = useState({
+  month: "",
+  year: "",
+  date: ""
+});
 
   const userId = localStorage.getItem("userId");
 
@@ -52,15 +60,19 @@ export default function Dashboard() {
   };
   load();
 }, []);
-
-  // 📊 FETCH DATA
   const fetchData = async () => {
-    const inc = await API.get(`/income/${userId}`);
-    const exp = await API.get(`/expenses/${userId}`);
+  try {
+    const incomeRes = await API.get("/api/income");
+    const expenseRes = await API.get("/api/expenses");
 
-    setIncome(inc.data);
-    setExpenses(exp.data);
-  };
+    setIncome(incomeRes.data);
+    setExpenses(expenseRes.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+  // 📊 FETCH DATA
+
 
   // 💰 TOTALS
   const totalIncome = income.reduce((s, i) => s + Number(i.amount), 0);
@@ -73,8 +85,8 @@ export default function Dashboard() {
       const d = new Date(item.date);
 
       return (
-        (!filter.month || d.getMonth() + 1 == filter.month) &&
-        (!filter.year || d.getFullYear() == filter.year) &&
+        (!filter.month || d.getMonth() + 1 === filter.month) &&
+        (!filter.year || d.getFullYear() === filter.year) &&
         (!filter.date || d.toISOString().split("T")[0] === filter.date)
       );
     });

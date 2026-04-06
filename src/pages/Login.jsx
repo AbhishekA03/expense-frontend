@@ -1,45 +1,64 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
-import API from "../services/api";
-import "../styles/Login.css";
+import "../styles/auth.css";
 
+const Login = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-export default function Login() {
-  const [data, setData] = useState({});
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     try {
-      const res = await API.post("/auth/login", data);
-      localStorage.setItem("userId", res.data.userId);
+      const res = await API.post("/api/auth/login", form);
+
+      // 🔥 IMPORTANT: adjust based on backend response
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      alert("Login Successful ✅");
+
       navigate("/dashboard");
-    } catch {
-      alert("Invalid credentials");
+    } catch (err) {
+      console.log(err);
+      alert(err.response?.data?.message || "Login Failed ❌");
     }
   };
 
   return (
-    <div className="login-page">
-    <div className="login-container">
-      <h2>Login</h2>
+    <div className="auth-container">
+      <form onSubmit={handleLogin} className="auth-card">
+        <h2>Login</h2>
 
-      <input
-        placeholder="Email"
-        onChange={(e) => setData({ ...data, email: e.target.value })}
-      />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setData({ ...data, password: e.target.value })}
-      />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
 
-      <button onClick={handleLogin}>Login</button>
-
-      <p onClick={() => navigate("/signup")}>
-        Don't have an account? Sign up
-      </p>
-    </div>
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
-}
+};
+
+export default Login;

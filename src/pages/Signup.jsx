@@ -1,73 +1,68 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
-import API from "../services/api";
-import "../styles/Signup.css";
+import "../styles/auth.css";
 
-
-export default function Signup() {
-  const [data, setData] = useState({
-    name: "",
+const Signup = () => {
+  const [form, setForm] = useState({
+    username: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   const navigate = useNavigate();
 
-  const handleSignup = async () => {
-    if (!data.name || !data.email || !data.password) {
-      alert("Please fill all fields");
-      return;
-    }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
 
     try {
-      await API.post("/auth/signup", data);
+      const res = await API.post("/api/auth/signup", form);
 
-      alert("Signup successful ✅");
-
-      // 👉 Redirect to login page
-      navigate("/");
-
+      alert("Signup Successful ✅");
+      navigate("/login");
     } catch (err) {
-      alert("Signup failed ❌");
+      console.log(err);
+      alert(err.response?.data?.message || "Signup Failed ❌");
     }
   };
 
   return (
-    <div className="login-page">
-    <div className="login-container">
-      <h2>Signup</h2>
+    <div className="auth-container">
+      <form onSubmit={handleSignup} className="auth-card">
+        <h2>Create Account</h2>
 
-      <input
-        placeholder="Name"
-        value={data.name}
-        onChange={(e) =>
-          setData({ ...data, name: e.target.value })
-        }
-      />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          onChange={handleChange}
+          required
+        />
 
-      <input
-        placeholder="Email"
-        value={data.email}
-        onChange={(e) =>
-          setData({ ...data, email: e.target.value })
-        }
-      />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={data.password}
-        onChange={(e) =>
-          setData({ ...data, password: e.target.value })
-        }
-      />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
 
-      <button onClick={handleSignup}>Signup</button>
-
-      <p onClick={() => navigate("/")}>
-        Already have an account? Login
-      </p>
-    </div>
+        <button type="submit">Signup</button>
+      </form>
     </div>
   );
-}
+};
+
+export default Signup;
