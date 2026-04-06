@@ -60,11 +60,12 @@ const Signup = () => {
         />
 
         <button type="submit">Signup</button>
-      </form>
-      <p className="auth-switch">
+        <p className="auth-switch">
         Already have an account?{" "}
-        <span onClick={() => navigate("/login")}>Login</span>
+        <span onClick={() => navigate("/")}>Login</span>
       </p>
+      </form>
+      
     </div>
   );
 };
