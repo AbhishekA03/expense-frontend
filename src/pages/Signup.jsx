@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/auth.css";
+import "../styles/Signup.css";
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -61,6 +61,10 @@ const Signup = () => {
 
         <button type="submit">Signup</button>
       </form>
+      <p className="auth-switch">
+        Already have an account?{" "}
+        <span onClick={() => navigate("/login")}>Login</span>
+      </p>
     </div>
   );
 };
