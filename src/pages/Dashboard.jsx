@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import API from "../services/api";
 import "../styles/Dashboard.css";
 
 import logo from "../assets/images/Logo.jpg";
