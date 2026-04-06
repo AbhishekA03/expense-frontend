@@ -57,6 +57,10 @@ const Login = () => {
 
         <button type="submit">Login</button>
       </form>
+      <p className="auth-switch">
+        Don't have an account?{" "}
+        <span onClick={() => navigate("/signup")}>Sign Up</span>
+      </p>
     </div>
   );
 };
